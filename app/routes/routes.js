@@ -66,7 +66,7 @@ function getWeather(city, country, cb) {
 
                 // Request weather information with OpenWeatherMap API
                 request('https://api.openweathermap.org/data/2.5/weather?id=' + list[i].id + '&APPID=5879e860962b07734fc97566d05adacc', {json: true}, (err, res, body) => {
-                    // Request failed
+                    // Request failed (should not happen)
                     if (err) {
                         console.log(err); // Log
                         return weatherNotFound('Unable to fetch weather. Please try again later'); // report and return

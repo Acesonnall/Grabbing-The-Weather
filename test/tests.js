@@ -52,5 +52,31 @@ describe('User', () => {
                     done();
                 });
         });
+
+        it('should report location not found if input doesn\'t match database values', done => {
+            api.get('/weather?city=Isle%20Delfine&country=Paradise')
+                .set('Accept', 'application/json')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body.err).to.be.a('string');
+                    expect(res.body.err).to.equal('Location not supported.');
+                    done();
+                });
+        });
+
+        it('should report weather information if no prior errors', done => {
+            api.get('/weather?city=Zhengzhou&country=China')
+                .set('Accept', 'application/json')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body.info).to.have.property('city');
+                    expect(res.body.info.city).to.be.a('string');
+                    expect(res.body.info).to.have.property('fahrenheit');
+                    expect(res.body.info.fahrenheit).to.be.a('number');
+                    expect(res.body.info).to.have.property('celsius');
+                    expect(res.body.info.celsius).to.be.a('number');
+                    done();
+                });
+        });
     });
 });
