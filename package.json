@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm install node -r babel-register"
+    "start": "npm install && node app.js -r babel-register"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "materialize-css": "^0.100.2",
     "mocha": "^4.0.1",
     "morgan": "^1.9.0",
+    "node": "^9.2.0",
     "request": "^2.83.0"
   }
 }
