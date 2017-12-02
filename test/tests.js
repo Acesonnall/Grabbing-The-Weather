@@ -2,24 +2,21 @@
 
 const should = require('chai').should(),
     expect = require('chai').expect,
-    supertest = require('supertest'),
     server = require('../app'),
-    api = supertest(server);
+    api = require('supertest').agent(server);
 
-let testPassed = 0;
-
-function testsFinished(number, server) {
-    if (number === 3)
-        server.close();
-}
 
 describe('User', () => {
+    after(done => {
+        server.close();
+        done();
+    });
+
     describe('GET /', () => {
         it('should return a 200 response', done => {
             api.get('/')
                 .set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8')
                 .expect(200, done);
-            testsFinished(++testPassed, server);
         });
     });
 
@@ -32,7 +29,6 @@ describe('User', () => {
                   expect(res.body.err).to.be.a('string');
                   expect(res.body.err).to.equal('Please enter a city and country name.');
                   done();
-                  testsFinished(++testPassed, server);
               });
        });
 
@@ -44,7 +40,6 @@ describe('User', () => {
                     expect(res.body.err).to.be.a('string');
                     expect(res.body.err).to.equal('Please enter a city name.');
                     done();
-                    testsFinished(++testPassed, server);
                 });
         });
 
@@ -56,7 +51,6 @@ describe('User', () => {
                     expect(res.body.err).to.be.a('string');
                     expect(res.body.err).to.equal('Please enter a country name.');
                     done();
-                    testsFinished(++testPassed, server);
                 });
         });
     });
