@@ -1,3 +1,3 @@
 # Grabbing-The-Weather
-https://travis-ci.org/Acesonnall/Grabbing-The-Weather.svg?branch=master
+[![Build Status](https://travis-ci.org/Acesonnall/Grabbing-The-Weather.svg?branch=master)](https://travis-ci.org/Acesonnall/Grabbing-The-Weather)
 A program that prompts for a city name and returns the current temperature for the city using OpenWeatherMap API
