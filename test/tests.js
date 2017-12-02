@@ -1,10 +1,9 @@
 'use strict';
 
-const should = require('chai').should(),
-    expect = require('chai').expect,
-    server = require('../app'),
+const expect = require('chai').expect,
+    app = require('../app'),
+    server = app.listen(),
     api = require('supertest').agent(server);
-
 
 describe('User', () => {
     after(done => {

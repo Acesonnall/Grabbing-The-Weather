@@ -34,9 +34,11 @@ app.use(express.static('./node_modules/materialize-css/dist')); // Server up fan
 
 require(__dirname + '/app/routes/routes.js')(app); // load our routes and pass in our app
 
-// Start server
-const server = app.listen(port, () => {
-    console.log("Listening on port " + port); // Successfully started (not checking for errors)
-});
+// Start server (check for parent for testing purposes)
+if (!module.parent) {
+    app.listen(port, () => {
+        console.log("Listening on port " + port); // Successfully started (not checking for errors)
+    });
+}
 
-module.exports = server; // For testing purposes
+module.exports = app; // For testing purposes
