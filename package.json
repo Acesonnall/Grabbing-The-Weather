@@ -4,7 +4,7 @@
   "description": "dwolla technical problem",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "npm install && node app.js -r babel-register"
   },
   "repository": {
@@ -19,13 +19,17 @@
   "homepage": "https://github.com/Acesonnall/Grabbing-The-Weather#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.6.1",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
+    "chai": "^4.1.2",
+    "compression": "^1.7.1",
     "countrynames": "^0.1.1",
     "express": "^4.16.2",
+    "express-minify-html": "^0.11.5",
     "jquery": "^3.2.1",
     "materialize-css": "^0.100.2",
     "mocha": "^4.0.1",

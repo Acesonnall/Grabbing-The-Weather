@@ -102,7 +102,7 @@ q q:after {
     content: '\2019'
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h6 {
     margin: .5em 0;
     font-weight: 600;
     letter-spacing: -.03em;
@@ -142,18 +142,8 @@ h4 {
     font-size: 180%;
 }
 
-h5 {
-    font-size: 140%;
-}
-
 h6 {
     font-size: 120%;
-}
-
-a {
-    text-decoration: none;
-    outline: none !important;
-    color: slateblue;
 }
 
 a:hover,
@@ -212,12 +202,6 @@ pre > code {
 li {
     font-size: 12pt;
     padding: .25em 0;
-}
-
-p {
-    margin: 0;
-    font-weight: 400;
-    font-size: 12pt;
 }
 
 * + p {
@@ -281,13 +265,6 @@ blockquote cite {
 blockquote footer:before,
 blockquote cite:before {
     content: 'â€” ';
-}
-
-footer {
-    font-size: 11pt;
-    text-align: center;
-    padding: 2em .5em;
-    color: #777;
 }
 
 a,

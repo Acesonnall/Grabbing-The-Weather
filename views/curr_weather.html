@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>Grabbing The Weather</title>
@@ -32,24 +34,38 @@
     </form>
     <p class="weather-res"></p>
 </div>
+<footer class="page-footer teal">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Grabbing The Weather (Technical Problem Solution)</h5>
+                <p class="grey-text text-lighten-4">A program written with Node.js, Express.js, and JQuery that prompts
+                    for a city name and returns the current temperature for the city using OpenWeatherMap API</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Author Contact</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="omtaylor@iastate.edu">Email</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/omtaylor">LinkedIn</a>
+                    </li>
+                    <li><a class="grey-text text-lighten-3" href="https://www.github.com/Acesonnall">GitHub (Ask about
+                        private repositories!)</a></li>
+                    <li><p class="grey-text text-lighten-3">Mobile: (954) 547-5960</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017
+        </div>
+    </div>
+</footer>
 
 <!-- Scripts -->
 <script type="text/javascript" src="/jquery.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/materialize.min.js"></script>
-<script>
-    $(document).ready(() => {
-        $('form').on('submit', event => {
-            event.preventDefault();
-
-            $.get('/weather?city=' + $('#city').val() + '&country=' + $('#country').val(), res => {
-                if (res.err)
-                    $('.weather-res').html('<p class="weather-res">' + res.err + '</p>');
-                else
-                    $('.weather-res').html('<p class="weather-res">The current temperature in <b>' + res.info.city + '</b> is <b>' + res.info.fahrenheit + '&#8457; (' + res.info.celsius + ' &#8451;)</b></p>');
-            });
-        });
-    });
-</script>
+<script type="text/javascript" src="/js/curr_weather.js"></script>
 </body>
 </html>
