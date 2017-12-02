@@ -42,8 +42,12 @@
         $('form').on('submit', event => {
             event.preventDefault();
 
-            $.get('/weather?city=' + $('#city').val() + '&country=' + $('#country').val(), res => $('.weather-res').html('<p class="weather-res">The current temperature in <b>' + res.city + '</b> is <b>' + res.fahrenheit + '&#8457; (' + res.celsius + ' &#8451;)</b></p>'));
-
+            $.get('/weather?city=' + $('#city').val() + '&country=' + $('#country').val(), res => {
+                if (res.err)
+                    $('.weather-res').html('<p class="weather-res">' + res.err + '</p>');
+                else
+                    $('.weather-res').html('<p class="weather-res">The current temperature in <b>' + res.info.city + '</b> is <b>' + res.info.fahrenheit + '&#8457; (' + res.info.celsius + ' &#8451;)</b></p>');
+            });
         });
     });
 </script>

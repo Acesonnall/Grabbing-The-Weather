@@ -60,7 +60,7 @@ function getWeather(city, country, cb) {
                         return weatherNotFound('There was an error. Please try again later');
                     }
 
-                    return weatherFound(body.main.temp, city);
+                    weatherFound(body.main.temp, city);
                 });
 
                 break;
@@ -68,7 +68,7 @@ function getWeather(city, country, cb) {
         }
 
         if (!found)
-            return weatherNotFound('Location not supported.');
+            weatherNotFound('Location not supported.');
     });
 }
 
@@ -80,13 +80,8 @@ module.exports = app => {
 
     app.get('/weather', (req, res) => {
         getWeather(req.query.city, req.query.country, (err, info) => {
-            if (err) {
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify(err));
-            } else {
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify(info));
-            }
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({err: err, info: info}));
         });
     });
 };
