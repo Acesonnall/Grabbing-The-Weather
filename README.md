@@ -1,5 +1,5 @@
 # Grabbing-The-Weather
-[![Build Status](https://travis-ci.org/Acesonnall/Grabbing-The-Weather.svg?branch=master)](https://travis-ci.org/Acesonnall/Grabbing-The-Weather)
+[![Build Status](https://travis-ci.org/Acesonnall/Grabbing-The-Weather.svg?branch=master)](https://travis-ci.org/Acesonnall/Grabbing-The-Weather) [![Dependency Status](https://david-dm.org/Acesonnall/rGrabbing-The-Weather.svg)](https://david-dm.org/Acesonnall/Grabbing-The-Weather) [![devDependency Status](https://david-dm.org/Acesonnall/Grabbing-The-Weather/dev-status.svg)](https://david-dm.org/Acesonnall/Grabbing-The-Weather#info=devDependencies)
 <br />
 A program that prompts for a city name and returns the current temperature for the city using OpenWeatherMap API <br />
 ## How to run
@@ -9,3 +9,28 @@ A program that prompts for a city name and returns the current temperature for t
 ## How to test
 1. Follow steps 1 and 2 of "How to run"
 2. Type **npm test** into the terminal
+## Technologies Used
+### Front-End
+#### Languages
+- HTML/CSS
+- JavaScript
+#### Frameworks
+- Bootstrap (CSS/JS)
+- JQuery (JS)
+- Materialize (CSS/JS)
+### Back-End
+#### Languages
+- Node.js (JavaScript)
+#### Frameworks
+- Babel (Next-gen JS compiler)
+- Express.js (Web framework)
+- Morgan (HTTP request debug logging)
+- Request (HTTP request client)
+- Body-parser (Body parsing)
+- Compression (Gzip compression)
+- Express-minify (Minification)
+- Countrynames (Country name/code mapper)
+#### Test Frameworks
+- Chai (BDD / TDD assertion framework)
+- Mocha (JS testing)
+- SuperTest (HTTP server testing)
