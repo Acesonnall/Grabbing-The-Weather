@@ -34,5 +34,7 @@ A program that prompts for a city name and returns the current temperature for t
 - Chai (BDD / TDD assertion framework)
 - Mocha (JS testing)
 - SuperTest (HTTP server testing)
+### Continuous Integration
+- Travis CI
 ## Demo
 ![Grabbing The Weather Demo](https://github.com/Acesonnall/Grabbing-The-Weather/blob/master/Project_Resources/Grabbing%20The%20Weather%20Demo.gif?raw=true)
