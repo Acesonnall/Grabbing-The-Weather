@@ -1,5 +1,5 @@
 # Grabbing-The-Weather
-[![Build Status](https://travis-ci.org/Acesonnall/Grabbing-The-Weather.svg?branch=master)](https://travis-ci.org/Acesonnall/Grabbing-The-Weather) [![Dependency Status](https://david-dm.org/Acesonnall/rGrabbing-The-Weather.svg)](https://david-dm.org/Acesonnall/Grabbing-The-Weather) [![devDependency Status](https://david-dm.org/Acesonnall/Grabbing-The-Weather/dev-status.svg)](https://david-dm.org/Acesonnall/Grabbing-The-Weather#info=devDependencies)
+[![Build Status](https://travis-ci.org/Acesonnall/Grabbing-The-Weather.svg?branch=master)](https://travis-ci.org/Acesonnall/Grabbing-The-Weather) [![dependencies Status](https://david-dm.org/Acesonnall/Grabbing-The-Weather/status.svg)](https://david-dm.org/Acesonnall/Grabbing-The-Weather) [![devDependency Status](https://david-dm.org/Acesonnall/Grabbing-The-Weather/dev-status.svg)](https://david-dm.org/Acesonnall/Grabbing-The-Weather#info=devDependencies)
 <br />
 A program that prompts for a city name and returns the current temperature for the city using OpenWeatherMap API <br />
 ## How to run
@@ -51,5 +51,7 @@ A program that prompts for a city name and returns the current temperature for t
 - Chai (BDD / TDD assertion framework)
 - Mocha (JS testing)
 - SuperTest (HTTP server testing)
+### Continuous Integration
+- Travis CI
 ## Demo
 ![Grabbing The Weather Demo](https://github.com/Acesonnall/Grabbing-The-Weather/blob/master/Project_Resources/Grabbing%20The%20Weather%20Demo.gif?raw=true)
