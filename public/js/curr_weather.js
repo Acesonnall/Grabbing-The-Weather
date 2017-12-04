@@ -1,3 +1,8 @@
+/**
+ * @file Scripting for corresponding HTML file
+ * @author Omar Taylor <omtaylor@iastate.edu>
+ */
+
 // Run scripts when document finished loadin
 $(document).ready(() => {
 

@@ -1,3 +1,8 @@
+/**
+ * @file BDD style testing with Chai
+ * @author Omar Taylor <omtaylor@iastate.edu>
+ */
+
 'use strict';
 
 const expect = require('chai').expect,

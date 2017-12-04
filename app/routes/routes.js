@@ -1,3 +1,8 @@
+/**
+ * @file Server handle for weather related client requests
+ * @author Omar Taylor <omtaylor@iastate.edu>
+ */
+
 'use strict';
 
 const _viewsdir = appRoot + '/views',

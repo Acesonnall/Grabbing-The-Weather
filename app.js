@@ -1,3 +1,8 @@
+/**
+ * @file Application entry point/Server configuration
+ * @author Omar Taylor <omtaylor@iastate.edu>
+ */
+
 'use strict';
 
 global.appRoot = __dirname; //set the global path so other files may use it

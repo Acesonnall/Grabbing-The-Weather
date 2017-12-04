@@ -9,6 +9,23 @@ A program that prompts for a city name and returns the current temperature for t
 ## How to test
 1. Follow steps 1 and 2 of "How to run"
 2. Type **npm test** into the terminal
+## Folder Structure
+- app.js (Application entry point/Server configuration)
+- /app (App core)
+  - /routes (App routes)
+    - routes.js (Server handle for weather related client requests)
+- /public (statically served files for client use)
+  - /css (local CSS)
+    - basic.css (Basic HTML stylesheet for views)
+  - /files (local files)
+    - city.list.json (City ID lookup database) **[doesn't need to be public]**
+  - /js (local JS)
+    - curr_weather.js (Scripting for HTML)
+- /views (Client user interface)
+  - curr_weather.html (Domain page)
+- /test (software testing folder)
+  - tests.js (BDD style testing with Chai)
+  
 ## Technologies Used
 ### Front-End
 #### Languages
