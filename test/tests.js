@@ -5,17 +5,41 @@
 
 'use strict';
 
-const expect = require('chai').expect,
-    app = require('../app').app,
-    server = app.listen(),
-    api = require('supertest').agent(server);
+const expect = require('chai').expect, // BDD assertion
+    app = require('../app').app, // The application
+    server = app.listen(), // The server instance
+    api = require('supertest').agent(server), // HTTP testing instance
+    Weather = require('../app/weather/weather').Weather; // Weather class
+
 
 describe('Internal', () => {
     describe('API Key', () => {
-        it('should exist as an environment variable', done => {
-            const apikey = process.env.APIKEY;
-            expect(apikey).to.be.a('string');
-            expect(apikey.length).to.equal(32);
+        it('should throw error if no api key exists', done => {
+            expect(() => new Weather(undefined, appRoot + '/public/files/city.list.json')).to.throw(Error, 'No API');
+            done();
+        });
+
+        it('should throw error if api key is invalid', done => {
+            expect(() => new Weather('0cc175b9c0f1b6a8', appRoot + '/public/files/city.list.json')).to.throw(Error, 'Invalid');
+            done();
+        });
+
+        it('should set api key if no errors exist', done => {
+            // Fake key used
+            const w = new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.json');
+            expect(w.apikey).to.be.a('string');
+            done();
+        });
+
+        it('should throw error if no file destination inputted', done => {
+            // Fake key used
+            expect(() => new Weather('0cc175b9c0f1b6a831c399e269772661', undefined)).to.throw(Error, 'No file');
+            done();
+        });
+
+        it('should throw ENOENT error if file not found', done => {
+            // Fake key used
+            expect(() => new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.txt')).to.throw(Error, 'ENOENT');
             done();
         });
     });

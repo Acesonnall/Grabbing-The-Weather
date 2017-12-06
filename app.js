@@ -17,9 +17,7 @@ const express = require('express'), // Require our module
     port = 80, // Set to port 80
     morgan = require('morgan'), // Require our server activity logger module
     minifyHTML = require('express-minify-html'), // Require HTML minification module for faster load times (Not useful for this application, but good practice)
-    fs = require('fs'),
-
-    toolbox = require('./app/toolbox/toolbox');
+    Weather = require('./app/weather/weather').Weather; // Require our weather class
 
 app.use(compression(), morgan('dev'), bodyParser.urlencoded({extended: true}), bodyParser.json()); // Attach middleware
 
@@ -42,13 +40,9 @@ app.use(express.static('./node_modules/bootstrap/dist')); // Serve up bootstrap 
 app.use(express.static('./node_modules/jquery/dist')); // Serve up jquery folder
 app.use(express.static('./node_modules/materialize-css/dist')); // Server up fancy external css and js folder
 
-const data = fs.readFileSync('public/files/city.list.json');
+const weather = new Weather(process.env.APIKEY, __dirname + '/public/files/city.list.json'); // Instantiate weather class
 
-const list = JSON.parse(data);
-
-module.exports.list = list;
-
-require(__dirname + '/app/routes/routes.js')(app); // load our routes and pass in our app
+require(__dirname + '/app/routes/routes.js')(app, weather); // load our routes and pass in our app
 
 // Start server (check for parent for testing purposes)
 if (!module.parent) {
