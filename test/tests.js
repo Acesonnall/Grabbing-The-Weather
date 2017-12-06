@@ -14,33 +14,74 @@ const expect = require('chai').expect, // BDD assertion
 
 describe('Internal', () => {
     describe('API Key', () => {
-        it('should throw error if no api key exists', done => {
-            expect(() => new Weather(undefined, appRoot + '/public/files/city.list.json')).to.throw(Error, 'No API');
-            done();
+        it('should throw error if no api key exists', async () => {
+            let w, msg;
+            try {
+                w = new Weather(undefined, appRoot + '/public/files/city.list.json');
+            } catch (e) {
+                msg = e.message;
+            }
+            expect(w).to.be.undefined;
+            expect(msg).to.be.a('string').that.equals('No API key input.');
         });
 
-        it('should throw error if api key is invalid', done => {
-            expect(() => new Weather('0cc175b9c0f1b6a8', appRoot + '/public/files/city.list.json')).to.throw(Error, 'Invalid');
-            done();
+        it('should throw error if api key is invalid', async () => {
+            let w, msg;
+            try {
+                w = new Weather('0cc175b9c0f1b6a8', appRoot + '/public/files/city.list.json')
+            } catch (e) {
+                msg = e.message;
+            }
+            expect(w).to.be.undefined;
+            expect(msg).to.be.a('string').that.equals('Invalid API key.');
         });
 
-        it('should set api key if no errors exist', done => {
-            // Fake key used
-            const w = new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.json');
+        it('should set api key if no errors exist', async () => {
+            let w, msg;
+            try {
+                w = new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.json');
+            } catch (e) {
+                msg = e.message;
+            }
+            expect(msg).to.be.undefined;
+            expect(w).to.be.an('object');
             expect(w.apikey).to.be.a('string');
-            done();
+        });
+    });
+
+    describe('City list file', async () => {
+        it('should throw error if no file destination inputted', async () => {
+            let w, msg;
+            try {
+                w = new Weather('0cc175b9c0f1b6a831c399e269772661', undefined);
+            } catch (e) {
+                msg = e.message;
+            }
+            expect(w).to.be.undefined;
+            expect(msg).to.be.a('string').that.equals('No file input.')
         });
 
-        it('should throw error if no file destination inputted', done => {
-            // Fake key used
-            expect(() => new Weather('0cc175b9c0f1b6a831c399e269772661', undefined)).to.throw(Error, 'No file');
-            done();
+        it('should throw ENOENT error if file not found', async () => {
+            let w, msg;
+            try {
+                w = new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.txt');
+            } catch (e) {
+                msg = e.message;
+            }
+            expect(w).to.be.undefined;
+            expect(msg).to.be.a('string').that.contains('ENOENT');
         });
 
-        it('should throw ENOENT error if file not found', done => {
-            // Fake key used
-            expect(() => new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.txt')).to.throw(Error, 'ENOENT');
-            done();
+        it('should populate city list if no errors', async () => {
+            let w, msg;
+            try {
+                w = new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.json');
+            } catch (e) {
+                msg = e.message;
+            }
+            expect(msg).to.be.undefined;
+            expect(w).to.be.an('object');
+            expect(['a', 'b']).to.be.an('array');
         });
     });
 });

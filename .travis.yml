@@ -1,3 +1,4 @@
 language: node_js # Dealing with JavaScript project
 node_js:
- - "stable" # Test against latest stable node.js release
+ - "stable"
+ - "8.8" # Test against latest stable node.js release
