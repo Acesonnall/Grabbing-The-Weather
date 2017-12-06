@@ -4,7 +4,7 @@
   "description": "dwolla technical problem",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --timeout 15000",
+    "test": "mocha",
     "start": "npm install && node app.js -r babel-register"
   },
   "repository": {
@@ -28,6 +28,7 @@
     "chai": "^4.1.2",
     "compression": "^1.7.1",
     "countrynames": "^0.1.1",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-minify-html": "^0.11.5",
     "jquery": "^3.2.1",

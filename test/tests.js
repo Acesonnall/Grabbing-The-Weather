@@ -6,9 +6,20 @@
 'use strict';
 
 const expect = require('chai').expect,
-    app = require('../app'),
+    app = require('../app').app,
     server = app.listen(),
     api = require('supertest').agent(server);
+
+describe('Internal', () => {
+    describe('API Key', () => {
+        it('should exist as an environment variable', done => {
+            const apikey = process.env.APIKEY;
+            expect(apikey).to.be.a('string');
+            expect(apikey.length).to.equal(32);
+            done();
+        });
+    });
+});
 
 describe('User', () => {
     after(done => {
@@ -61,17 +72,21 @@ describe('User', () => {
             expect(res.body.err).to.equal('Location not supported.');
         });
 
-        it('should report weather information if no prior errors', async () => {
-           const res = await api.get('/weather?city=Zhengzhou&country=China')
-                .set('Accept', 'application/json')
-                .expect(200);
+        it('should report weather information if no prior errors regardless of casing', async () => {
+            const tests = ['/weather?city=mIAmi&country=uniTED%20sTaTeS', '/weather?city=mexico%20city&country=mexico', '/weather?city=NEW%20DELHI&country=INDIA'];
 
-            expect(res.body.info).to.have.property('city');
-            expect(res.body.info.city).to.be.a('string');
-            expect(res.body.info).to.have.property('fahrenheit');
-            expect(res.body.info.fahrenheit).to.be.a('number');
-            expect(res.body.info).to.have.property('celsius');
-            expect(res.body.info.celsius).to.be.a('number');
+            for (let i = 0; i < tests.length; i++) {
+                const res = await api.get(tests[i])
+                    .set('Accept', 'application/json')
+                    .expect(200);
+
+                expect(res.body.info).to.have.property('city');
+                expect(res.body.info.city).to.be.a('string');
+                expect(res.body.info).to.have.property('fahrenheit');
+                expect(res.body.info.fahrenheit).to.be.a('number');
+                expect(res.body.info).to.have.property('celsius');
+                expect(res.body.info.celsius).to.be.a('number');
+            }
         });
     });
 });

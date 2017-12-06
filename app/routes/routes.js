@@ -6,12 +6,14 @@
 'use strict';
 
 const _viewsdir = appRoot + '/views',
-    _publicdir = appRoot + '/public',
 
-    fs = require('fs'), // Require module for interacting with file system
     path = require('path'), // Require path module for configuring paths
     countrynames = require('countrynames'), // Require module to resolve country names
-    request = require('request'); // Require module to make HTTP requests
+    request = require('request'), // Require module to make HTTP requests
+
+    toolbox = require('../toolbox/toolbox'), // Handy dandy functions
+    list = require('../../app').list, // List of Cities
+    apikey = process.env.APIKEY;
 
 /**
  *
@@ -50,44 +52,33 @@ function getWeather(city, country, cb) {
     else if (!country)
         return weatherNotFound('Please enter a country name.');
 
-    // Search for matching city and country values in our database
-    fs.readFile(_publicdir + '/files/city.list.json', (err, data) => {
-        // Handle file reading error (should not happen)
-        if (err) {
-            console.log(err); // Log
-            return weatherNotFound('There was an internal error. Please try again later.'); // report and return
+    let found = false; // State variable
+
+    // Iterate through JSON array
+    for (let i = 0; i < list.length; i++) {
+
+        // User provided city and country values exist with list?
+        if (list[i].name === city && list[i].country === (country.length < 3 ? country : countrynames.getCode(country))) {
+            found = true; // Got 'em
+
+            // Request weather information with OpenWeatherMap API
+            request('https://api.openweathermap.org/data/2.5/weather?id=' + list[i].id + '&APPID=' + apikey, {json: true}, (err, res, body) => {
+                // Request failed (should not happen)
+                if (err) {
+                    console.log(err); // Log
+                    return weatherNotFound('Unable to fetch weather. Please try again later'); // report and return
+                }
+
+                weatherFound(body.main.temp, city); // Send weather information to client
+            });
+
+            break; // End loop (efficiency)
         }
+    }
 
-        let found = false; // State variable
-
-        const list = JSON.parse(data); // Parse binary into JSON object
-
-        // Iterate through JSON array
-        for (let i = 0; i < list.length; i++) {
-
-            // User provided city and country values exist with list?
-            if (list[i].name === city && list[i].country === (country.length < 3 ? country : countrynames.getCode(country))) {
-                found = true; // Got 'em
-
-                // Request weather information with OpenWeatherMap API
-                request('https://api.openweathermap.org/data/2.5/weather?id=' + list[i].id + '&APPID=5879e860962b07734fc97566d05adacc', {json: true}, (err, res, body) => {
-                    // Request failed (should not happen)
-                    if (err) {
-                        console.log(err); // Log
-                        return weatherNotFound('Unable to fetch weather. Please try again later'); // report and return
-                    }
-
-                    weatherFound(body.main.temp, city); // Send weather information to client
-                });
-
-                break; // End loop (efficiency)
-            }
-        }
-
-        // No errors and reached end of loop?
-        if (!found)
-            weatherNotFound('Location not supported.');
-    });
+    // No errors and reached end of loop?
+    if (!found)
+        weatherNotFound('Location not supported.');
 }
 
 /**********************************/
@@ -101,7 +92,7 @@ module.exports = app => {
 
     // Get weather (used in AJAX call from client
     app.get('/weather', (req, res) => {
-        getWeather(req.query.city, req.query.country, (err, info) => {
+        getWeather(toolbox.toTitleCase(req.query.city), toolbox.toTitleCase(req.query.country), (err, info) => {
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(JSON.stringify({err: err, info: info}));
         });

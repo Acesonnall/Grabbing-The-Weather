@@ -7,6 +7,8 @@
 
 global.appRoot = __dirname; //set the global path so other files may use it
 
+require('dotenv').config();
+
 const express = require('express'), // Require our module
     app = express(), // Instantiate our module
 
@@ -14,7 +16,10 @@ const express = require('express'), // Require our module
     bodyParser = require('body-parser'), // Parses incoming request bodies (made available in req.body)
     port = 80, // Set to port 80
     morgan = require('morgan'), // Require our server activity logger module
-    minifyHTML = require('express-minify-html'); // Require HTML minification module for faster load times (Not useful for this application, but good practice)
+    minifyHTML = require('express-minify-html'), // Require HTML minification module for faster load times (Not useful for this application, but good practice)
+    fs = require('fs'),
+
+    toolbox = require('./app/toolbox/toolbox');
 
 app.use(compression(), morgan('dev'), bodyParser.urlencoded({extended: true}), bodyParser.json()); // Attach middleware
 
@@ -37,6 +42,12 @@ app.use(express.static('./node_modules/bootstrap/dist')); // Serve up bootstrap 
 app.use(express.static('./node_modules/jquery/dist')); // Serve up jquery folder
 app.use(express.static('./node_modules/materialize-css/dist')); // Server up fancy external css and js folder
 
+const data = fs.readFileSync('public/files/city.list.json');
+
+const list = JSON.parse(data);
+
+module.exports.list = list;
+
 require(__dirname + '/app/routes/routes.js')(app); // load our routes and pass in our app
 
 // Start server (check for parent for testing purposes)
@@ -46,4 +57,4 @@ if (!module.parent) {
     });
 }
 
-module.exports = app; // For testing purposes
+module.exports.app = app;
