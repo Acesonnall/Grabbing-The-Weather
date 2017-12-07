@@ -5,9 +5,12 @@ A program that prompts for a city name and returns the current temperature for t
 ## How to run
 1. Verify you are running latest stable version of node
 2. Clone repository and "cd" into folder
-3. Type **npm start** into the terminal
+3. Set environment variable "APIKEY" to api key value retrieved from openweatherapi.org
+   1. Add .env file to root folder
+   2. Add line "APIKEY=*< YOUR API KEY >*"
+4. Type **npm start** into the terminal
 ## How to test
-1. Follow steps 1 and 2 of "How to run"
+1. Follow steps 1 to 3 of "How to run"
 2. Type **npm test** into the terminal
 ## Folder Structure
 - app.js (Application entry point/Server configuration)
