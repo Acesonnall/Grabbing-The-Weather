@@ -40,7 +40,11 @@ app.use(express.static('./node_modules/bootstrap/dist')); // Serve up bootstrap 
 app.use(express.static('./node_modules/jquery/dist')); // Serve up jquery folder
 app.use(express.static('./node_modules/materialize-css/dist')); // Server up fancy external css and js folder
 
-const weather = new Weather(process.env.APIKEY, __dirname + '/public/files/city.list.json'); // Instantiate weather class
+const weather = new Weather(process.env.APIKEY, __dirname + '/public/files/city.list.json', err => {
+    if (err) {
+        console.log(err);
+    }
+}); // Instantiate weather class
 
 require(__dirname + '/app/routes/routes.js')(app, weather); // load our routes and pass in our app
 

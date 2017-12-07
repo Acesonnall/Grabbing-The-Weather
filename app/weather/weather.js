@@ -14,18 +14,24 @@ module.exports.Weather = class Weather {
      * Weather class instantiates with an API key and file pointer to the city list
      * @param apikey must be set as environment variable
      * @param file list of city ids
+     * @param cb callback
      */
-    constructor(apikey, file) {
+    constructor(apikey, file, cb) {
         if (!apikey)
-            throw new Error('No API key input.');
+            return cb('No API key input.');
         else if (apikey.length < 32)
-            throw new Error('Invalid API key.');
+            return cb('Invalid API key.');
         else
             this._apikey = apikey;
         if (!file)
-            throw new Error('No file input.');
-        else
-            this._cityList = JSON.parse(fs.readFileSync(file));
+            return cb('No file input.');
+        else {
+            try {
+                this._cityList = JSON.parse(fs.readFileSync(file));
+            } catch (e) {
+                return cb(e.message);
+            }
+        }
     }
 
     /**
