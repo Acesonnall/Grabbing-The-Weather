@@ -23,7 +23,7 @@ describe('Internal', () => {
         });
 
         it('should set api key if no errors exist', async () => {
-            const w = await new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.json', err => expect(err).to.be.undefined);
+            const w = await new Weather(process.env.APIKEY, appRoot + '/public/files/city.list.json', err => expect(err).to.be.undefined);
 
             expect(w).to.be.an('object');
             expect(w.apikey).to.be.a('string');
@@ -32,15 +32,15 @@ describe('Internal', () => {
 
     describe('City list file', async () => {
         it('should throw error if no file destination inputted', async () => {
-            new Weather('0cc175b9c0f1b6a831c399e269772661', undefined, err => expect(err).to.be.a('string').that.equals('No file input.'));
+            new Weather(process.env.APIKEY, undefined, err => expect(err).to.be.a('string').that.equals('No file input.'));
         });
 
         it('should throw ENOENT error if file not found', async () => {
-            new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.txt', err => expect(err).to.be.a('string').that.contains('ENOENT'));
+            new Weather(process.env.APIKEY, appRoot + '/public/files/city.list.txt', err => expect(err).to.be.a('string').that.contains('ENOENT'));
         });
 
         it('should populate city list if no errors', async () => {
-            const w = await new Weather('0cc175b9c0f1b6a831c399e269772661', appRoot + '/public/files/city.list.json', err => {
+            const w = await new Weather(process.env.APIKEY, appRoot + '/public/files/city.list.json', err => {
                 expect(err).to.be.undefined;
             });
 
@@ -102,16 +102,20 @@ describe('User', () => {
         });
 
         it('should report weather information if no prior errors regardless of casing', async () => {
-            const res = await api.get('/weather?city=mIAmi&country=uniTED%20sTaTeS')
-                .set('Accept', 'application/json')
-                .expect(200);
+            const tests = ['/weather?city=mIAmi&country=uniTED%20sTaTeS', '/weather?city=mexico%20city&country=mexico', '/weather?city=NEW%20DELHI&country=INDIA'];
 
-            expect(res.body.info).to.have.property('city');
-            expect(res.body.info.city).to.be.a('string');
-            expect(res.body.info).to.have.property('fahrenheit');
-            expect(res.body.info.fahrenheit).to.be.a('number');
-            expect(res.body.info).to.have.property('celsius');
-            expect(res.body.info.celsius).to.be.a('number');
+            for (let i = 0; i < tests.length; i++) {
+                const res = await api.get(tests[i])
+                    .set('Accept', 'application/json')
+                    .expect(200);
+
+                expect(res.body.info).to.have.property('city');
+                expect(res.body.info.city).to.be.a('string');
+                expect(res.body.info).to.have.property('fahrenheit');
+                expect(res.body.info.fahrenheit).to.be.a('number');
+                expect(res.body.info).to.have.property('celsius');
+                expect(res.body.info.celsius).to.be.a('number');
+            }
         });
     });
 });

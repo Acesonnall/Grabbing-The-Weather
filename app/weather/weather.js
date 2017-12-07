@@ -10,6 +10,7 @@ const fs = require('fs'),
     request = require('request'); // Require module to make HTTP requests
 
 module.exports.Weather = class Weather {
+
     /**
      * Weather class instantiates with an API key and file pointer to the city list
      * @param apikey must be set as environment variable
@@ -114,5 +115,9 @@ module.exports.Weather = class Weather {
      */
     get apikey() {
         return this._apikey;
+    }
+
+    set apikey(value) {
+        this._apikey = value;
     }
 };
