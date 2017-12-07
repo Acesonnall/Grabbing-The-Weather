@@ -116,8 +116,4 @@ module.exports.Weather = class Weather {
     get apikey() {
         return this._apikey;
     }
-
-    set apikey(value) {
-        this._apikey = value;
-    }
 };
